@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper Functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        request.auth.token.email == '31choichoi@gmail.com'
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Booking Validation
+    function isBookingValid(data) {
+      return data.clientName is string && data.clientName.size() <= 100 &&
+             data.contact is string && data.contact.size() <= 50 &&
+             data.date is string && data.date.size() <= 64 &&
+             data.time is string && data.time.size() <= 10 &&
+             data.status in ['pending', 'confirmed', 'completed', 'contract_in_progress'] &&
+             (data.get('details', '') is string && data.get('details', '').size() <= 5000);
+    }
+
+    match /bookings/{bookingId} {
+      allow create: if isBookingValid(incoming()) && 
+                    incoming().status == 'pending' &&
+                    incoming().createdAt == request.time;
+      
+      allow read, list, delete: if isAdmin();
+      
+      allow update: if isAdmin() && isBookingValid(incoming());
+    }
+
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if false; // Only manageable via console
+    }
+    
+    match /test/connection {
+      allow read: if true;
+    }
+  }
+}

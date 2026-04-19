@@ -1,0 +1,50 @@
+/**
+ * Defines the structure of the FirebaseBlueprint configuration.
+ */
+{
+  "entities": {
+    "booking": {
+      "title": "Consultation Booking",
+      "description": "A request for a consultation between a client and MID Design.",
+      "type": "object",
+      "properties": {
+        "clientName": { "type": "string", "description": "Customer name" },
+        "contact": { "type": "string", "description": "Phone number" },
+        "address": { "type": "string", "description": "Service location" },
+        "size": { "type": "string", "description": "Pyeong or square meters" },
+        "budget": { "type": "string", "description": "Estimated budget range" },
+        "details": { "type": "string", "description": "Consultation message" },
+        "date": { "type": "string", "format": "date-time", "description": "Scheduled date" },
+        "time": { "type": "string", "description": "Scheduled time slot" },
+        "status": { 
+          "type": "string", 
+          "enum": ["pending", "confirmed", "completed", "contract_in_progress"],
+          "description": "Status of the booking"
+        },
+        "region": { "type": "string", "description": "Region category (Bundang, Pangyo, Seoul, etc.) for stats" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["clientName", "contact", "date", "time", "status"]
+    },
+    "admin": {
+      "title": "Admin User",
+      "description": "A user with administrative access to the dashboard.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin"] }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/bookings/{bookingId}": {
+      "schema": "booking",
+      "description": "Collection of all consultation requests."
+    },
+    "/admins/{adminId}": {
+      "schema": "admin",
+      "description": "List of authorized administrators."
+    }
+  }
+}
