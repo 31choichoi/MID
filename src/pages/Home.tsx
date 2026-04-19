@@ -116,9 +116,9 @@ const Home = () => {
       <section className="py-32 px-6 md:px-12 bg-slate-50">
         <div className="max-w-7xl mx-auto mb-20 text-center">
           <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-brand-gold mb-4 block">Selection</span>
-          <h2 className="text-3xl md:text-6xl font-bold mb-6">Recent Work</h2>
+          <h2 className="text-3xl md:text-6xl font-bold mb-6">분당인테리어 시공 사례</h2>
           <p className="text-slate-400 font-light max-w-xl mx-auto">
-            주거부터 상업 공간까지, MID의 철학이 담긴 대표 프로젝트를 확인하세요.
+            판교 아파트 리모델링부터 하이엔드 상업 공간까지, MID의 철학이 담긴 대표 프로젝트를 확인하세요.
           </p>
         </div>
         
@@ -185,9 +185,9 @@ const Home = () => {
           
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
             <div>
-              <h2 className="text-2xl md:text-5xl font-bold text-white mb-6 leading-tight whitespace-nowrap">시작이 반입니다.</h2>
+              <h2 className="text-2xl md:text-5xl font-bold text-white mb-6 leading-tight whitespace-nowrap">분당인테리어 상담하기</h2>
               <p className="text-white/60 font-light max-w-md">
-                지금 바로 방문 상담을 예약하세요. <br />
+                지금 바로 판교 아파트 리모델링 방문 상담을 예약하세요. <br />
                 27년 경력의 디렉터가 직접 공간의 해법을 제시합니다.
               </p>
             </div>

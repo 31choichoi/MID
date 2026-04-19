@@ -44,7 +44,7 @@ const Portfolio = () => {
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={cn(
-                  "px-4 md:px-12 py-4 text-[10px] md:text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] font-bold transition-all duration-300 relative border border-slate-200 -ml-[1px] -mt-[1px] md:mt-0",
+                  "px-4 md:px-12 py-4 text-sm md:text-base uppercase tracking-widest font-bold transition-all duration-300 relative border border-slate-200 -ml-[1px] -mt-[1px] md:mt-0",
                   filter === cat 
                     ? "bg-brand-navy text-white border-brand-navy z-10" 
                     : "bg-white text-slate-400 hover:text-brand-gold hover:bg-slate-50"
