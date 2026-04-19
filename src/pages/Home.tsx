@@ -30,9 +30,9 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium mb-8 leading-tight"
           >
-            경험이 만드는 차이,<br />
+            분당인테리어의 경험이 만드는 차이,<br />
             공간의 가치를 더하다
           </motion.h1>
           
@@ -42,9 +42,9 @@ const Home = () => {
             transition={{ delay: 0.4 }}
             className="text-base md:text-xl font-light text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            하이엔드 주거 설계부터 <br />
+            분당·판교 하이엔드 주거 설계부터 <br />
             전국 프랜차이즈 시공까지, <br />
-            MID의 타협 없는 고집.
+            MID 디자인 스튜디오의 타협 없는 고집.
           </motion.p>
           
           <motion.div 

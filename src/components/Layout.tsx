@@ -31,13 +31,13 @@ const Navbar = () => {
       scrolled ? "bg-white/90 backdrop-blur-md py-3 shadow-sm" : "bg-transparent py-6"
     )}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="flex flex-col">
+        <Link to="/" className="flex items-baseline gap-3">
           <span className={cn(
-            "text-2xl font-serif font-bold tracking-tighter transition-colors",
+            "text-4xl font-serif font-bold tracking-tighter transition-colors",
             isNavDark ? "text-slate-900" : "text-white"
           )}>MID</span>
           <span className={cn(
-            "text-[10px] uppercase tracking-[0.3em] font-medium transition-colors",
+            "text-[10px] md:text-xs uppercase tracking-[0.4em] font-semibold transition-colors",
             isNavDark ? "text-slate-500" : "text-white/70"
           )}>Interior Design</span>
         </Link>
@@ -120,9 +120,9 @@ const Footer = () => (
   <footer className="bg-slate-950 text-white/90 py-20 px-6 md:px-12 border-t border-white/5">
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
       <div className="col-span-1 md:col-span-1">
-        <Link to="/" className="flex flex-col mb-6">
-          <span className="text-3xl font-serif font-bold tracking-tighter text-white">MID</span>
-          <span className="text-[11px] uppercase tracking-[0.3em] font-medium text-white/50">Interior Design</span>
+        <Link to="/" className="flex items-baseline gap-3 mb-6">
+          <span className="text-4xl font-serif font-bold tracking-tighter text-white">MID</span>
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-semibold text-white/50">Interior Design</span>
         </Link>
         <p className="text-sm text-white/50 leading-relaxed font-light mb-6">
           "경험이 만드는 차이, 공간의 가치를 더하는 27년의 기술력"

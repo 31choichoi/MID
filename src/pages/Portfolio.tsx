@@ -7,7 +7,6 @@ import { cn } from '../lib/utils';
 
 const Portfolio = () => {
   const [filter, setFilter] = useState<ProjectCategory | 'All'>('All');
-  const [search, setSearch] = useState('');
 
   const categoryMap: Record<string, string> = {
     'All': '전체',
@@ -19,10 +18,7 @@ const Portfolio = () => {
   const categories: (ProjectCategory | 'All')[] = ['All', 'Residential', 'Commercial', 'Remodeling'];
 
   const filteredProjects = PROJECTS.filter(project => {
-    const matchesFilter = filter === 'All' || project.category === filter;
-    const matchesSearch = project.title.toLowerCase().includes(search.toLowerCase()) || 
-                          project.location.toLowerCase().includes(search.toLowerCase());
-    return matchesFilter && matchesSearch;
+    return filter === 'All' || project.category === filter;
   });
 
   return (
@@ -41,37 +37,32 @@ const Portfolio = () => {
 
       {/* Filters */}
       <section className="px-6 md:px-12 mb-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 border-y border-slate-100 py-8">
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-12">
+        <div className="max-w-7xl mx-auto flex justify-center border-y border-slate-100 py-10">
+          <div className="flex flex-wrap items-center justify-center gap-0">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={cn(
-                  "text-xs md:text-sm uppercase tracking-[0.2em] font-bold transition-all hover:text-brand-gold relative",
-                  filter === cat ? "text-slate-900" : "text-slate-400"
+                  "px-8 md:px-12 py-4 text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold transition-all duration-300 relative border border-slate-200 -ml-[1px]",
+                  filter === cat 
+                    ? "bg-brand-navy text-white border-brand-navy z-10" 
+                    : "bg-white text-slate-400 hover:text-brand-gold hover:bg-slate-50"
                 )}
               >
-                {categoryMap[cat]}
+                <span className="relative z-10">
+                  {categoryMap[cat]}
+                </span>
+                
                 {filter === cat && (
                   <motion.div 
-                    layoutId="underline"
-                    className="absolute -bottom-2 left-0 w-full h-[1px] bg-slate-900" 
+                    layoutId="activeFilterBg"
+                    className="absolute inset-0 bg-brand-navy"
+                    transition={{ type: "spring", bounce: 0, duration: 0.4 }}
                   />
                 )}
               </button>
             ))}
-          </div>
-          
-          <div className="relative w-full md:w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
-            <input 
-              type="text" 
-              placeholder="Search projects..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-slate-200 text-xs focus:outline-none focus:border-brand-gold transition-colors"
-            />
           </div>
         </div>
       </section>
@@ -127,7 +118,7 @@ const Portfolio = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <div className="relative z-10">
             <span className="text-brand-gold uppercase tracking-[0.4em] text-[10px] font-bold mb-6 block">Case Study</span>
-            <h2 className="text-3xl md:text-6xl font-bold mb-8 italic leading-tight">틈새라면 전국구 시공 능력</h2>
+            <h2 className="text-2xl md:text-6xl font-bold mb-8 italic leading-tight">틈새라면 전국구 시공 능력</h2>
             <p className="text-white/60 font-light text-base md:text-lg leading-relaxed mb-12">
               단순한 인테리어를 넘어 브랜드의 아이덴티티를 전국적으로 복제하고 유지하는 매뉴얼화된 시스템. 
               MID는 '틈새라면'의 역사를 공간으로 함께 써내려가고 있습니다.
