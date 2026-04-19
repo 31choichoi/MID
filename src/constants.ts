@@ -15,7 +15,7 @@ export const PROJECTS: Project[] = [
     category: 'Residential',
     location: '성남시 분당구',
     description: '가족 구성원의 라이프스타일을 반영하여 공용 공간과 개인 공간의 균형을 맞춘 한국형 모던 클래식 인테리어입니다.',
-    imageUrl: '/img/pf_02.jpg'
+    imageUrl: 'https://cdn.jsdelivr.net/gh/31choichoi/Joy@7220a12411059ccc75b9b62e060e0c5a5295d2f0/public/img/pf_02.jpg'
   },
   {
     id: '10',
@@ -23,7 +23,7 @@ export const PROJECTS: Project[] = [
     category: 'Residential',
     location: '성남시 판교',
     description: '화이트 톤의 미니멀리즘과 세련된 간접 조명 설계를 통해 공간의 깊이감을 더하고, 30평대 아파트 특유의 아늑함을 극대화한 현장입니다.',
-    imageUrl: 'https://images.unsplash.com/photo-1615529151169-7b1ff50dc7f2?auto=format&fit=crop&q=80&w=1200'
+    imageUrl: 'https://cdn.jsdelivr.net/gh/31choichoi/Joy@7220a12411059ccc75b9b62e060e0c5a5295d2f0/public/img/pf_03.jpg'
   },
   {
     id: '2',
@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: '3',
-    title: '틈새라면 명동 본점',
+    title: '틈새라면 프랜차이즈 전국 시공',
     category: 'Commercial',
     location: '서울시 명동',
     description: '브랜드 아이덴티티를 유지하면서 효율적인 공간 활용을 보여주는 MID의 대표 프랜차이즈 시공 사례입니다.',
@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
     category: 'Commercial',
     location: '서울시 성동구 성수동',
     description: '따뜻한 베이지 톤의 벽면과 백라이트 타원형 거울, 그리고 내추럴한 우드 소재가 어우러진 편안하고 감각적인 프리미엄 헤어 살롱입니다.',
-    imageUrl: 'https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&q=80&w=1200'
+    imageUrl: 'https://cdn.jsdelivr.net/gh/31choichoi/Joy@f9edc42f0a0bbc6e66c98defc6d32312a66fc090/public/img/pf_04.png'
   }
 ];
 
