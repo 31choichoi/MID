@@ -17,12 +17,13 @@ const About = () => {
           >
             <div className="relative inline-block mb-12">
                 <img 
-                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1287" 
+                  src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&q=80&w=1287" 
                   className="w-full max-w-md aspect-[3/4] object-cover grayscale"
-                  alt="Director Hwang Kyowan"
+                  alt="MID White Minimalist Interior"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute -bottom-8 -right-8 min-w-[320px] p-8 bg-brand-navy text-white shadow-2xl">
-                  <span className="text-[10px] uppercase tracking-widest text-brand-gold font-bold block mb-2">Design Director</span>
+                  <span className="text-[10px] uppercase tracking-widest text-brand-gold font-bold block mb-2">Design Philosophy</span>
                   <p className="text-xl font-serif font-bold whitespace-nowrap">Director. Hwang Kyowan</p>
                 </div>
             </div>
@@ -76,7 +77,8 @@ const About = () => {
           </div>
           
           <div className="relative">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-slate-200" />
+            {/* Desktop Center Line / Mobile Left Line */}
+            <div className="absolute top-0 left-4 md:left-1/2 -translate-x-1/2 w-[1px] h-full bg-slate-200" />
             
             <div className="space-y-24">
               {HISTORY.map((item, i) => (
@@ -86,32 +88,34 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className={cn(
-                    "relative flex items-center justify-between gap-12",
-                    i % 2 === 0 ? "flex-row" : "flex-row-reverse"
-                  )}
+                  className="relative flex items-center justify-start md:justify-between"
                 >
-                  <div className="w-1/2 flex flex-col items-end text-right px-4">
-                    {i % 2 === 0 ? (
+                  {/* Left Side (Desktop Only) */}
+                  <div className="hidden md:flex w-1/2 flex-col items-end text-right px-8">
+                    {i % 2 === 0 && (
                       <>
                         <span className="text-4xl md:text-5xl font-serif font-black text-slate-900/10 mb-2">{item.year}</span>
                         <p className="text-base md:text-lg font-bold text-slate-800">{item.event}</p>
                       </>
-                    ) : (
-                      <div className="w-full flex"></div>
                     )}
                   </div>
                   
-                  <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-brand-gold border-4 border-white z-10" />
+                  {/* Dot */}
+                  <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-brand-gold border-4 border-white z-10" />
                   
-                  <div className="w-1/2 px-4">
-                    {i % 2 !== 0 ? (
+                  {/* Right Side (Always on Mobile, Staggered on Desktop) */}
+                  <div className="w-full md:w-1/2 pl-12 md:pl-8">
+                    {(i % 2 !== 0) ? (
                       <div className="flex flex-col items-start">
                         <span className="text-4xl md:text-5xl font-serif font-black text-slate-900/10 mb-2">{item.year}</span>
                         <p className="text-base md:text-lg font-bold text-slate-800">{item.event}</p>
                       </div>
                     ) : (
-                      <div className="w-full flex"></div>
+                      /* Show on mobile even if index is even */
+                      <div className="md:hidden flex flex-col items-start">
+                        <span className="text-4xl md:text-5xl font-serif font-black text-slate-900/10 mb-2">{item.year}</span>
+                        <p className="text-base md:text-lg font-bold text-slate-800">{item.event}</p>
+                      </div>
                     )}
                   </div>
                 </motion.div>

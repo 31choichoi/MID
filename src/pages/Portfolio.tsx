@@ -9,6 +9,13 @@ const Portfolio = () => {
   const [filter, setFilter] = useState<ProjectCategory | 'All'>('All');
   const [search, setSearch] = useState('');
 
+  const categoryMap: Record<string, string> = {
+    'All': '전체',
+    'Residential': '주거공간',
+    'Commercial': '상업공간',
+    'Remodeling': '리모델링'
+  };
+
   const categories: (ProjectCategory | 'All')[] = ['All', 'Residential', 'Commercial', 'Remodeling'];
 
   const filteredProjects = PROJECTS.filter(project => {
@@ -41,11 +48,11 @@ const Portfolio = () => {
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={cn(
-                  "text-[10px] uppercase tracking-[0.2em] font-bold transition-all hover:text-brand-gold relative",
+                  "text-xs md:text-sm uppercase tracking-[0.2em] font-bold transition-all hover:text-brand-gold relative",
                   filter === cat ? "text-slate-900" : "text-slate-400"
                 )}
               >
-                {cat}
+                {categoryMap[cat]}
                 {filter === cat && (
                   <motion.div 
                     layoutId="underline"
@@ -97,7 +104,7 @@ const Portfolio = () => {
                 </div>
                 <div>
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] uppercase tracking-widest text-brand-gold font-bold">{project.category}</span>
+                    <span className="text-xs uppercase tracking-widest text-brand-gold font-bold">{categoryMap[project.category]}</span>
                     <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">{project.location}</span>
                   </div>
                   <h3 className="text-xl font-serif font-bold group-hover:text-brand-gold transition-colors">{project.title}</h3>
