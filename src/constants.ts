@@ -23,7 +23,7 @@ export const PROJECTS: Project[] = [
     category: 'Residential',
     location: '성남시 판교',
     description: '화이트 톤의 미니멀리즘과 세련된 간접 조명 설계를 통해 공간의 깊이감을 더하고, 30평대 아파트 특유의 아늑함을 극대화한 현장입니다.',
-    imageUrl: 'https://cdn.jsdelivr.net/gh/31choichoi/Joy@7220a12411059ccc75b9b62e060e0c5a5295d2f0/public/img/pf_03.jpg'
+    imageUrl: 'https://cdn.jsdelivr.net/gh/31choichoi/Joy@8a90a0c9d3d57c3e86307b27c3c90013292ee813/public/img/pf_05.png'
   },
   {
     id: '2',
