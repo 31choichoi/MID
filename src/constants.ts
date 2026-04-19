@@ -15,7 +15,7 @@ export const PROJECTS: Project[] = [
     category: 'Residential',
     location: '성남시 분당구',
     description: '가족 구성원의 라이프스타일을 반영하여 공용 공간과 개인 공간의 균형을 맞춘 한국형 모던 클래식 인테리어입니다.',
-    imageUrl: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=1200'
+    imageUrl: 'https://cdn.jsdelivr.net/gh/31choichoi/Joy@img/img/pf_01.jpg'
   },
   {
     id: '10',

@@ -85,6 +85,7 @@ const Portfolio = () => {
                   <img 
                     src={project.imageUrl} 
                     alt={project.title}
+                    referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   {project.isTeumsae && (
