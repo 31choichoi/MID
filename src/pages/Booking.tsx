@@ -158,6 +158,30 @@ const Booking = () => {
         <div className="max-w-4xl mx-auto">
           <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-brand-gold mb-6 block">Reservation</span>
           <h1 className="text-5xl md:text-7xl font-bold mb-8">방문 상담 예약</h1>
+          <div className="flex justify-center mb-10">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="https://m.booking.naver.com/booking/13/bizes/1180716/items/5971491?area=pll&lang=ko&service-target=map-pc&startDate=2026-04-20&theme=place"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center space-x-3 bg-[#e52528] text-white px-10 py-5 rounded-full font-bold text-lg shadow-[0_10px_30px_rgba(229,37,40,0.4)] hover:shadow-[0_15px_40px_rgba(229,37,40,0.5)] transition-all duration-300"
+            >
+              <span className="w-8 h-8 bg-white text-[#e52528] rounded-full flex items-center justify-center font-black text-xs group-hover:rotate-12 transition-transform">N</span>
+              <span>네이버로 빠른 예약하기</span>
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="ml-2"
+              >
+                →
+              </motion.div>
+              <div className="absolute -top-1 -right-1 flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-white/20"></span>
+              </div>
+            </motion.a>
+          </div>
           <p className="text-slate-500 font-light text-lg leading-relaxed">
             전문 인테리어 디렉터와의 1:1 방문 상담을 예약하세요. <br className="hidden md:block" />
             공간의 시작과 끝을 MID가 함께 고민합니다.
