@@ -1,7 +1,7 @@
-User-agent: *
+User-agent: Yeti
 Allow: /
 
-User-agent: Yeti
+User-agent: *
 Allow: /
 
 Sitemap: https://mid-designstudio.com/sitemap.xml
