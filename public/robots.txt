@@ -1,7 +1,4 @@
-User-agent: Yeti
-Allow: /
-
 User-agent: *
 Allow: /
 
-Sitemap: https://mid-sooty.vercel.app/sitemap.xml
+Sitemap: https://minterior.kr/sitemap.xml

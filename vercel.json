@@ -1,5 +1,30 @@
 {
   "version": 2,
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.minterior.kr"
+        }
+      ],
+      "destination": "https://minterior.kr/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "mid-sooty.vercel.app"
+        }
+      ],
+      "destination": "https://minterior.kr/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/robots.txt",
