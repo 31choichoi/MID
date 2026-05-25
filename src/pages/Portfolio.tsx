@@ -71,39 +71,59 @@ const Portfolio = () => {
       <section className="px-6 md:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <motion.div
-                layout
-                key={project.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-                className="group cursor-pointer"
-              >
-                <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                  <img 
-                    src={project.imageUrl} 
-                    alt={project.title}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {project.isTeumsae && (
-                    <div className="absolute top-4 right-4 bg-brand-navy text-white px-3 py-1 text-[8px] uppercase tracking-widest font-bold">
-                      Franchise Master
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-xs uppercase tracking-widest text-brand-gold font-bold">{categoryMap[project.category]}</span>
-                    <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">{project.location}</span>
+            {filteredProjects.map((project) => {
+              const isExternal = !!project.externalUrl;
+              return (
+                <motion.div
+                  layout
+                  key={project.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                  className="group cursor-pointer"
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden mb-6">
+                    {isExternal ? (
+                      <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                        <img 
+                          src={project.imageUrl} 
+                          alt={project.title}
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </a>
+                    ) : (
+                      <img 
+                        src={project.imageUrl} 
+                        alt={project.title}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
+                    {project.isTeumsae && (
+                      <div className="absolute top-4 right-4 bg-brand-navy text-white px-3 py-1 text-[8px] uppercase tracking-widest font-bold">
+                        Franchise Master
+                      </div>
+                    )}
                   </div>
-                  <h3 className="text-xl font-serif font-bold group-hover:text-brand-gold transition-colors">{project.title}</h3>
-                  <p className="text-sm text-slate-500 font-light mt-2 line-clamp-2">{project.description}</p>
-                </div>
-              </motion.div>
-            ))}
+                  <div>
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="text-xs uppercase tracking-widest text-brand-gold font-bold">{categoryMap[project.category]}</span>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">{project.location}</span>
+                    </div>
+                    {isExternal ? (
+                      <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="inline-block">
+                        <h3 className="text-xl font-serif font-bold group-hover:text-brand-gold transition-colors">{project.title}</h3>
+                      </a>
+                    ) : (
+                      <h3 className="text-xl font-serif font-bold group-hover:text-brand-gold transition-colors">{project.title}</h3>
+                    )}
+                    <p className="text-sm text-slate-500 font-light mt-2 line-clamp-2">{project.description}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
         

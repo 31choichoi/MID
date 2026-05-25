@@ -126,28 +126,43 @@ const Home = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {PROJECTS.slice(0, 3).map((project, i) => (
-            <motion.div 
-              key={project.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative h-[500px] overflow-hidden cursor-pointer"
-            >
-              <img 
-                src={project.imageUrl} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                alt={project.title}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-              <div className="absolute bottom-0 p-8">
-                <span className="text-[10px] uppercase tracking-widest text-brand-gold font-bold mb-2 block">{project.category}</span>
-                <h4 className="text-2xl font-serif text-white font-bold mb-2">{project.title}</h4>
-                <p className="text-white/60 text-xs uppercase tracking-widest">{project.location}</p>
-              </div>
-            </motion.div>
-          ))}
+          {PROJECTS.slice(0, 3).map((project, i) => {
+            const isExternal = !!project.externalUrl;
+            const CardContent = (
+              <>
+                <img 
+                  src={project.imageUrl} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  alt={project.title}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                <div className="absolute bottom-0 p-8">
+                  <span className="text-[10px] uppercase tracking-widest text-brand-gold font-bold mb-2 block">{project.category}</span>
+                  <h4 className="text-2xl font-serif text-white font-bold mb-2 group-hover:text-brand-gold transition-colors">{project.title}</h4>
+                  <p className="text-white/60 text-xs uppercase tracking-widest">{project.location}</p>
+                </div>
+              </>
+            );
+
+            return (
+              <motion.div 
+                key={project.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative h-[500px] overflow-hidden cursor-pointer"
+              >
+                {isExternal ? (
+                  <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                    {CardContent}
+                  </a>
+                ) : (
+                  CardContent
+                )}
+              </motion.div>
+            );
+          })}
         </div>
         
         <div className="text-center">

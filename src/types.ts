@@ -25,6 +25,7 @@ export interface Project {
   description: string;
   imageUrl: string;
   isTeumsae?: boolean;
+  externalUrl?: string;
 }
 
 export interface Post {
