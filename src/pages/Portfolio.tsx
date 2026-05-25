@@ -8,6 +8,19 @@ import { cn } from '../lib/utils';
 const Portfolio = () => {
   const [filter, setFilter] = useState<ProjectCategory | 'All'>('All');
 
+  const handleLinkClick = (url?: string) => {
+    if (!url) return;
+    const width = 1100;
+    const height = 850;
+    const left = (window.screen.width - width) / 2;
+    const top = (window.screen.height - height) / 2;
+    window.open(
+      url,
+      '_blank',
+      `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,noopener,noreferrer`
+    );
+  };
+
   const categoryMap: Record<string, string> = {
     'All': '전체',
     'Residential': '주거공간',
@@ -83,28 +96,25 @@ const Portfolio = () => {
                   transition={{ duration: 0.4 }}
                   className="group cursor-pointer"
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                    {isExternal ? (
-                      <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                        <img 
-                          src={project.imageUrl} 
-                          alt={project.title}
-                          referrerPolicy="no-referrer"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      </a>
-                    ) : (
-                      <img 
-                        src={project.imageUrl} 
-                        alt={project.title}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    )}
+                  <div 
+                    onClick={() => handleLinkClick(project.externalUrl)}
+                    className="relative aspect-[4/5] overflow-hidden mb-6"
+                  >
+                    <img 
+                      src={project.imageUrl} 
+                      alt={project.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                     {project.isTeumsae && (
                       <div className="absolute top-4 right-4 bg-brand-navy text-white px-3 py-1 text-[8px] uppercase tracking-widest font-bold">
                         Franchise Master
                       </div>
+                    )}
+                    {isExternal && (
+                      <span className="absolute bottom-3 right-3 bg-brand-gold/90 text-white text-[9px] font-medium px-2 py-1 rounded shadow-md tracking-wider">
+                        블로그 연결
+                      </span>
                     )}
                   </div>
                   <div>
@@ -112,13 +122,12 @@ const Portfolio = () => {
                       <span className="text-xs uppercase tracking-widest text-brand-gold font-bold">{categoryMap[project.category]}</span>
                       <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">{project.location}</span>
                     </div>
-                    {isExternal ? (
-                      <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="inline-block">
-                        <h3 className="text-xl font-serif font-bold group-hover:text-brand-gold transition-colors">{project.title}</h3>
-                      </a>
-                    ) : (
-                      <h3 className="text-xl font-serif font-bold group-hover:text-brand-gold transition-colors">{project.title}</h3>
-                    )}
+                    <h3 
+                      onClick={() => handleLinkClick(project.externalUrl)}
+                      className={`text-xl font-serif font-bold group-hover:text-brand-gold transition-colors ${isExternal ? 'cursor-pointer' : ''}`}
+                    >
+                      {project.title}
+                    </h3>
                     <p className="text-sm text-slate-500 font-light mt-2 line-clamp-2">{project.description}</p>
                   </div>
                 </motion.div>

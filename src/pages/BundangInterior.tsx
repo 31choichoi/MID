@@ -7,62 +7,56 @@ import { Helmet } from 'react-helmet-async';
 export default function BundangInterior() {
   const [filter, setFilter] = useState('all');
 
+  const handleLinkClick = (url?: string) => {
+    if (!url) return;
+    const width = 1100;
+    const height = 850;
+    const left = (window.screen.width - width) / 2;
+    const top = (window.screen.height - height) / 2;
+    window.open(
+      url,
+      '_blank',
+      `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,noopener,noreferrer`
+    );
+  };
+
   const portfolioItems = [
-    {
-      id: 1,
-      title: "분당 정자동 아이파크 32평 올수리",
-      desc: "모던 호텔식 화이트 컨셉 리모델링",
-      tags: ["분당인테리어", "정자동", "30평형대"],
-      filters: ["bundang", "30py"],
-      img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800",
-      badge: "HOT",
-      price: "프리미엄 견적"
-    },
-    {
-      id: 2,
-      title: "분당 서현동 시범단지 27평 인테리어",
-      desc: "따뜻한 우드 포인트 내추럴 스타일",
-      tags: ["분당인테리어", "서현동", "20평형대"],
-      filters: ["bundang", "20py"],
-      img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800",
-      price: "맞춤 견적"
-    },
-    {
-      id: 3,
-      title: "판교 알파리움 43평 리모델링",
-      desc: "하이엔드 고급 대리석 마감과 조명 설계",
-      tags: ["판교인테리어", "성남인테리어", "40평형대"],
-      filters: ["pangyo", "40py"],
-      img: "https://mydrim.net/img/%ED%8C%90%EA%B5%90%EC%95%8C%ED%8C%8C%EB%A6%AC%EC%9B%8043%ED%8F%89.png",
-      price: "고급형 견적"
-    },
-    {
-      id: 4,
-      title: "분당 이매동 31평 모던 리모델링",
-      desc: "와이드 타일과 매립 수전 시스템 욕실",
-      tags: ["분당인테리어", "이매동", "30평형대"],
-      filters: ["bundang", "30py"],
-      img: "https://mydrim.net/img/%EB%B6%84%EB%8B%B9%EC%9D%B4%EB%A7%A4%EB%8F%9931%ED%8F%89%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4.png",
-      price: "합리적 견적"
-    },
-    {
-      id: 5,
-      title: "분당 수내동 파크뷰 45평 하이엔드",
-      desc: "프리미엄 원목 마루와 간접 조명 마감",
-      tags: ["분당인테리어", "수내동", "40평형대"],
-      filters: ["bundang", "40py"],
-      img: "https://mydrim.net/img/%EB%B6%84%EB%8B%B9%ED%8C%8C%ED%81%AC%EB%B7%B045%ED%8F%89.png",
-      price: "최고급 견적"
-    },
-    {
-      id: 6,
-      title: "판교 봇들마을 34평 맞춤 주방",
-      desc: "공간 효율을 극대화한 대면형 주방 설계",
-      tags: ["판교인테리어", "성남인테리어", "30py"],
-      filters: ["pangyo", "30py"],
-      img: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&q=80&w=800",
-      price: "평당 견적 문의"
-    }
+    { id: 1, title: "판교 운중동 산운마을 13단지 44평 인테리어", desc: "공간의 비례감과 고급 천연석 마감재의 조화", tags: ["판교인테리어", "운중동"], filters: ["pangyo", "40py"], img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800", price: "최고급 견적", url: "https://blog.naver.com/mid_designstudio/223776355147" },
+    { id: 2, title: "판교 삼평동 봇들마을 7단지 41평", desc: "그레이와 우드 톤의 정교한 밸런스 리모델링", tags: ["판교인테리어", "삼평동"], filters: ["pangyo", "40py"], img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800", price: "프리미엄 견적", url: "https://blog.naver.com/mid_designstudio/224253204139" },
+    { id: 3, title: "판교 삼평동 봇들마을 32평 인테리어", desc: "화이트와 베이지의 아늑한 조화 맞춤 설계", tags: ["판교인테리어", "삼평동"], filters: ["pangyo", "30py"], img: "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800", price: "합리적 견적", url: "https://blog.naver.com/mid_designstudio/221265576225" },
+    { id: 4, title: "판교 백현동 알파리움 43평 리모델링", desc: "웅장한 대리석 마감과 조명 럭셔리 스타일", tags: ["판교인테리어", "백현동"], filters: ["pangyo", "40py"], img: "https://mydrim.net/img/%ED%8C%90%EA%B5%90%EC%95%8C%ED%8C%8C%EB%A6%AC%EC%9B%8043%ED%8F%89.png", price: "고급형 견적" },
+    { id: 5, title: "판교 백현동 푸르지오그랑블 44평 인테리어", desc: "미니멀 라인과 간접 광원의 품격 있는 거실", tags: ["판교인테리어", "백현동"], filters: ["pangyo", "40py"], img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800", price: "맞춤형 견적" },
+    { id: 6, title: "판교 삼평동 봇들마을 34평 인테리어", desc: "공간 활용을 극대화한 트렌디 주방 레이아웃", tags: ["판교인테리어", "삼평동"], filters: ["pangyo", "30py"], img: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&q=80&w=800", price: "실속형 견적" },
+    { id: 7, title: "분당 정자동 로얄팰리스 호텔급 49평 51평 주상복합 인테리어", desc: "천연 대리석 마감의 럭셔리 하이엔드 주거공간", tags: ["분당인테리어", "정자동"], filters: ["bundang", "40py"], img: "https://cdn.jsdelivr.net/gh/31choichoi/Joy@7220a12411059ccc75b9b62e060e0c5a5295d2f0/public/img/pf_02.jpg", price: "최고급 견적", url: "https://blog.naver.com/mid_designstudio/224260203167" },
+    { id: 8, title: "분당 정자동 아이파크 64평 하이엔드 호텔 인테리어", desc: "압도적인 개방감과 대리석 디자인 월 마감", tags: ["분당인테리어", "정자동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=800", badge: "HOT", price: "프리미엄 견적", url: "https://blog.naver.com/mid_designstudio/224255614833" },
+    { id: 9, title: "분당 수내동 파크뷰 33평 하이엔드 호텔식 인테리어", desc: "화이트 톤 미니멀리즘과 단정한 명품 타일", tags: ["분당인테리어", "수내동"], filters: ["bundang", "30py"], img: "https://cdn.jsdelivr.net/gh/31choichoi/Joy@8a90a0c9d3d57c3e86307b27c3c90013292ee813/public/img/pf_05.png", price: "고급형 견적", url: "https://blog.naver.com/mid_designstudio/224250478460" },
+    { id: 10, title: "분당 수내동 파크타운 대림아파트 49평 인테리어", desc: "히든도어와 갤러리풍 디자인 예술적 공간", tags: ["분당인테리어", "수내동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800", price: "최고급 견적", url: "https://blog.naver.com/mid_designstudio/223724114339" },
+    { id: 11, title: "분당 수내동 파크타운 삼익아파트 38평 인테리어", desc: "우디 포인트와 차분한 베이지 컬러의 매칭", tags: ["분당인테리어", "수내동"], filters: ["bundang", "30py"], img: "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&q=80&w=800", price: "맞춤형 견적", url: "https://blog.naver.com/mid_designstudio/223604501503" },
+    { id: 12, title: "분당 정자동 49평 로얄팰리스 인테리어", desc: "곡선형 복도 천장과 완벽한 무몰딩 마감", tags: ["분당인테리어", "정자동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1617806118233-18e1db207faf?auto=format&fit=crop&q=80&w=800", price: "프리미엄 견적", url: "https://blog.naver.com/mid_designstudio/223569114346" },
+    { id: 13, title: "분당 분당동 샛별마을 우방아파트 27평 인테리어", desc: "소형 공간 한계를 뛰어넘은 세련 화이트", tags: ["분당인테리어", "분당동"], filters: ["bundang", "20py"], img: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&q=80&w=800", price: "실속형 견적", url: "https://blog.naver.com/mid_designstudio/223567307826" },
+    { id: 14, title: "분당 정자동 상록마을 31평 인테리어", desc: "디자인 대면형 오픈 주방과 매듭 조명 조화", tags: ["분당인테리어", "정자동"], filters: ["bundang", "30py"], img: "https://images.unsplash.com/photo-1617104551722-3b2d51366400?auto=format&fit=crop&q=80&w=800", price: "합리적 견적", url: "https://blog.naver.com/mid_designstudio/221397405737" },
+    { id: 15, title: "분당 정자동 아이파크 65평 인테리어", desc: "고급 우물 조명과 아일랜드 정밀 매개", tags: ["분당인테리어", "정자동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800", price: "최고급 견적", url: "https://blog.naver.com/mid_designstudio/221270655652" },
+    { id: 16, title: "분당 수내동 푸른마을 쌍용아파트 48평 인테리어", desc: "우디 클래식 품격이 전해지는 명작 인테리어", tags: ["분당인테리어", "수내동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=800", price: "프리미엄 견적", url: "https://blog.naver.com/mid_designstudio/223579349513" },
+    { id: 17, title: "분당 수내동 \"분당 복층아파트\" 푸른마을 52평  인테리어", desc: "수려한 복층형 디자인 계단과 우아한 올수리", tags: ["분당인테리어", "수내동"], filters: ["bundang", "40py"], img: "https://mydrim.net/img/%EB%B6%84%EB%8B%B9%ED%8C%8C%ED%81%AC%EB%B7%B045%ED%8F%89.png", price: "하이엔드 견적", url: "https://blog.naver.com/mid_designstudio/223558357842" },
+    { id: 18, title: "분당 수내동 양지마을 청구아파트 인테리어", desc: "세련된 무몰딩 마감과 와이드 무드 전용 욕실", tags: ["분당인테리어", "수내동"], filters: ["bundang", "30py"], img: "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&q=80&w=800", price: "맞춤형 견적", url: "https://blog.naver.com/mid_designstudio/223566491429" },
+    { id: 19, title: "수지 성동 센트럴 자이아파트 36평 인테리어", desc: "와이드 리빙룸 구조와 정교한 아일랜드 싱크대", tags: ["용인수지", "성복동"], filters: ["suji_yongin", "30py"], img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=800", price: "합리적 견적", url: "https://blog.naver.com/mid_designstudio/223588807485" },
+    { id: 20, title: "수지 용인 성복동 자이1차아파트 32평 인테리어", desc: "화사하고 완벽한 수납장 인클로저 맞춤 공간", tags: ["용인수지", "성복동"], filters: ["suji_yongin", "30py"], img: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&q=80&w=800", price: "실속형 견적", url: "https://blog.naver.com/mid_designstudio/223546146372" },
+    { id: 21, title: "수지 용인 상현동 롯데아파트 48평 인테리어", desc: "품위 넘치는 우디 레이아웃 거실과 디자인 연출", tags: ["용인수지", "상현동"], filters: ["suji_yongin", "40py"], img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80&w=800", price: "최고급 견적", url: "https://blog.naver.com/mid_designstudio/221066803297" },
+    { id: 22, title: "수지 용인 성복동 힐스테이트 36평 인테리어", desc: "간접 무드 조명 설계와 아름다운 매립 욕실", tags: ["용인수지", "성복동"], filters: ["suji_yongin", "30py"], img: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&q=80&w=800", price: "품격형 견적", url: "https://blog.naver.com/mid_designstudio/221622372764" },
+    { id: 23, title: "수지 용인 성복동 버들치마을 성복자이 34평 아파트 인테리어", desc: "고급 원목 월의 분위기와 단정한 면 정리 라인", tags: ["용인수지", "성복동"], filters: ["suji_yongin", "30py"], img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800", price: "상담문의 견적", url: "https://blog.naver.com/mid_designstudio/223630289367" },
+    { id: 24, title: "용인 기흥구 동아솔레시티 56평 인테리어", desc: "세련된 한옥풍 요소와 갤러리식 거실 아트월", tags: ["용인기흥", "동아솔레시티"], filters: ["suji_yongin", "40py"], img: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800", price: "최고급 견적", url: "https://blog.naver.com/mid_designstudio/221065934977" },
+    { id: 25, title: "용인 기흥구 보정동 신촌마을 포스홈타운 39평 인테리어", desc: "편안한 화이트 내추럴 스타일 미니멀 하우스", tags: ["용인기흥", "보정동"], filters: ["suji_yongin", "30py"], img: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80&w=800", price: "고급형 견적", url: "https://blog.naver.com/mid_designstudio/223636962728" },
+    { id: 26, title: "분당 수내동 양지마을 금호아파트 32평 인테리어", desc: "세련 심플 화이트 무드로 설계된 트렌디 아파트", tags: ["분당인테리어", "수내동"], filters: ["bundang", "30py"], img: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&q=80&w=800", price: "합리적 견적", url: "https://blog.naver.com/mid_designstudio/223573526451" },
+    { id: 27, title: "분당 수내동 양지마을 한양아파트 60평 인테리어", desc: "정밀 대면 구조와 고급 수입 세라믹 디자인", tags: ["분당인테리어", "수내동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800", price: "하이엔드 견적", url: "https://blog.naver.com/mid_designstudio/223570524806" },
+    { id: 28, title: "분당 수내동 양지마을 한양아파트 18평 인테리어", desc: "소형 공간 맞춤 서재 연계 및 알찬 원룸 구성", tags: ["분당인테리어", "수내동"], filters: ["bundang", "20py"], img: "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800", price: "가성비 견적", url: "https://blog.naver.com/mid_designstudio/223681364656" },
+    { id: 29, title: "분당 수내동 양지마을 한양아파트 49평 인테리어", desc: "정돈된 모던 월 아트 장식과 화려한 주동등선", tags: ["분당인테리어", "수내동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800", price: "프리미엄 견적", url: "https://blog.naver.com/mid_designstudio/223569522559" },
+    { id: 30, title: "분당 서현동 효자촌 임광아파트 45평 인테리어", desc: "햇살 가득 베이지톤 구조 조명 매립식 리모델링", tags: ["분당인테리어", "서현동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800", price: "고급형 견적", url: "https://blog.naver.com/mid_designstudio/221721850725" },
+    { id: 31, title: "분당 구미동 무지개마을 건영아파트 49평 인테리어", desc: "고급 마루와 감각적인 천정 등박스 인테리어", tags: ["분당인테리어", "구미동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800", price: "고급형 견적", url: "https://blog.naver.com/mid_designstudio/223624266718" },
+    { id: 32, title: "분당 구미동 까치마을 신원아파트 59평 인테리어", desc: "웅장한 조리대 중심 미적인 다이닝 라이프", tags: ["분당인테리어", "구미동"], filters: ["bundang", "40py"], img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=800", price: "최고급 견적", url: "https://blog.naver.com/mid_designstudio/223567469960" },
+    { id: 33, title: "분당 수내동 푸른마을 벽산 32평 인테리어", desc: "깔끔하고 정돈된 3평면 앵글 미니멀 화이트", tags: ["분당인테리어", "수내동"], filters: ["bundang", "30py"], img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800", price: "합리적 견적", url: "https://blog.naver.com/mid_designstudio/223575392476" },
+    { id: 34, title: "한강뷰 살린 잠실 리센츠 아파트 32평 J타입 인테리어", desc: "명품 조망을 해치지 않는 모던 깔끔 레이아웃", tags: ["기타서울", "잠실동"], filters: ["other_regions", "30py"], img: "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&q=80&w=800", price: "프리미엄 견적", url: "https://blog.naver.com/mid_designstudio/223565117522" },
+    { id: 35, title: "송파구 가락동 래미안파크팰리스 아파트 32평 A 인테리어", desc: "슬라이딩 무도어 맞춤 공간의 효율적인 동선", tags: ["기타서울", "가락동"], filters: ["other_regions", "30py"], img: "https://images.unsplash.com/photo-1617806118233-18e1db207faf?auto=format&fit=crop&q=80&w=800", price: "합리적 견적", url: "https://blog.naver.com/mid_designstudio/223566169346" },
+    { id: 36, title: "단독주택 리모델링, 오래된 구옥의 변신", desc: "건축적 가치를 불어넣은 환골탈태 단독 주택", tags: ["기타지역", "단독주택"], filters: ["other_regions", "remodeling"], img: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800", price: "상담문의 견적", url: "https://blog.naver.com/mid_designstudio/224270192433" }
   ];
 
   const filteredItems = filter === 'all' 
@@ -163,7 +157,9 @@ export default function BundangInterior() {
               { id: '30py', label: '30평형대' },
               { id: '40py', label: '40평형대' },
               { id: 'bundang', label: '분당구' },
-              { id: 'pangyo', label: '판교' }
+              { id: 'pangyo', label: '판교' },
+              { id: 'suji_yongin', label: '용인/수지' },
+              { id: 'other_regions', label: '기타/서울' }
             ].map((btn) => (
               <button
                 key={btn.id}
@@ -188,11 +184,19 @@ export default function BundangInterior() {
                 key={item.id} 
                 className="bg-white rounded-xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all group"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div 
+                  onClick={() => handleLinkClick(item.url)}
+                  className={`relative aspect-[4/3] overflow-hidden ${item.url ? 'cursor-pointer' : ''}`}
+                >
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   {item.badge && (
                     <span className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded">
                       {item.badge}
+                    </span>
+                  )}
+                  {item.url && (
+                    <span className="absolute bottom-3 right-3 bg-brand-gold/90 text-white text-[9px] font-medium px-2 py-1 rounded shadow-md tracking-wider">
+                      블로그 연결
                     </span>
                   )}
                 </div>
@@ -204,10 +208,17 @@ export default function BundangInterior() {
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2 truncate">{item.title}</h3>
+                  <h3 
+                    onClick={() => handleLinkClick(item.url)}
+                    className={`text-lg font-bold text-slate-900 mb-2 truncate group-hover:text-brand-gold transition-colors ${item.url ? 'cursor-pointer' : ''}`}
+                  >
+                    {item.title}
+                  </h3>
                   <p className="text-sm text-slate-500 font-light mb-4 line-clamp-2">{item.desc}</p>
                   <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
-                    <span className="text-xs text-slate-400">{item.filters[1]} · {item.filters[0] === 'bundang' ? '분당구' : '판교'}</span>
+                    <span className="text-xs text-slate-400">
+                      {item.filters[1] === 'remodeling' ? '전체 리모델링' : item.filters[1] === '20py' ? '20평형대' : item.filters[1] === '30py' ? '30평형대' : '40평형대+'} · {item.filters[0] === 'bundang' ? '분당구' : item.filters[0] === 'pangyo' ? '판교' : item.filters[0] === 'suji_yongin' ? '용인/수지' : '기타/서울'}
+                    </span>
                     <span className="text-sm font-semibold text-brand-gold">{item.price}</span>
                   </div>
                 </div>
