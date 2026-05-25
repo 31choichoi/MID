@@ -1,11 +1,22 @@
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, ChevronRight, Star, Home as HomeIcon, ShieldCheck, CheckCircle, Sparkles, HelpCircle, Receipt } from 'lucide-react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 export default function BundangInterior() {
   const [filter, setFilter] = useState('all');
+  const location = useLocation();
+  const portfolioRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (location.search.includes('scrollTo=portfolio') || location.hash === '#portfolio-section') {
+      const timer = setTimeout(() => {
+        portfolioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   const handleLinkClick = (url?: string) => {
     if (!url) return;
@@ -141,7 +152,7 @@ export default function BundangInterior() {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-24 px-6 md:px-12 bg-slate-50">
+      <section ref={portfolioRef} id="portfolio-section" className="py-24 px-6 md:px-12 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 font-serif">분당인테리어 포트폴리오</h2>

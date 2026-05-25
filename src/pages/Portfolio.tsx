@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { PROJECTS } from '../constants';
 import { ProjectCategory } from '../types';
@@ -6,6 +7,7 @@ import { Filter, Search, ExternalLink } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const Portfolio = () => {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<ProjectCategory | 'All'>('All');
 
   const handleLinkClick = (url?: string) => {
@@ -55,7 +57,13 @@ const Portfolio = () => {
             {categories.map((cat, index) => (
               <button
                 key={cat}
-                onClick={() => setFilter(cat)}
+                onClick={() => {
+                  if (cat === 'Residential') {
+                    navigate('/bundang-interior?scrollTo=portfolio');
+                  } else {
+                    setFilter(cat);
+                  }
+                }}
                 className={cn(
                   "px-4 md:px-12 py-4 text-sm md:text-base uppercase tracking-widest font-bold transition-all duration-300 relative border border-slate-200 -ml-[1px] -mt-[1px] md:mt-0",
                   filter === cat 
