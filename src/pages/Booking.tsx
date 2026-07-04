@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { format, addDays, startOfToday, isSameDay, startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isBefore } from 'date-fns';
-import { ChevronLeft, ChevronRight, Clock, MapPin, Send } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, Send } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { db } from '../lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { REGIONS, BUDGET_RANGES } from '../constants';
-import { BookingStatus } from '../types';
 
 const Calendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSelectDate: (d: Date) => void }) => {
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(selectedDate));
@@ -90,67 +86,8 @@ const Calendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSelect
 const Booking = () => {
   const [selectedDate, setSelectedDate] = useState(addDays(startOfToday(), 1));
   const [selectedTime, setSelectedTime] = useState('10:00');
-  const [formData, setFormData] = useState({
-    clientName: '',
-    contact: '',
-    address: '',
-    size: '',
-    budget: BUDGET_RANGES[0],
-    details: '',
-    region: REGIONS[0]
-  });
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const times = ['10:00', '14:00', '16:00', '19:00'];
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await addDoc(collection(db, 'bookings'), {
-        ...formData,
-        date: selectedDate.toISOString(),
-        time: selectedTime,
-        status: 'pending' as BookingStatus,
-        createdAt: serverTimestamp()
-      });
-      setSubmitted(true);
-      window.scrollTo(0, 0);
-    } catch (err) {
-      console.error(err);
-      alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (submitted) {
-    return (
-      <div className="pt-40 pb-60 px-6 text-center">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="max-w-2xl mx-auto bg-white p-20 shadow-2xl rounded-3xl border border-slate-50"
-        >
-          <div className="w-20 h-20 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center mx-auto mb-8">
-            <Send size={40} />
-          </div>
-          <h2 className="text-4xl font-bold mb-6">예약이 접수되었습니다.</h2>
-          <p className="text-slate-500 font-light text-lg mb-12">
-            담당자가 확인 후 24시간 이내에 연락드리겠습니다. <br/>
-            MID인테리어를 선택해주셔서 감사합니다.
-          </p>
-          <button 
-            onClick={() => window.location.href = '/'}
-            className="px-12 py-4 bg-slate-900 text-white text-xs uppercase tracking-widest font-bold hover:bg-brand-navy transition-all"
-          >
-            Back to Home
-          </button>
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <div className="pt-32 pb-40">
@@ -200,119 +137,60 @@ const Booking = () => {
                 <h4 className="text-xs uppercase tracking-[0.3em] font-bold text-brand-gold mb-4">Notification</h4>
                 <p className="text-sm font-light leading-relaxed text-white/70">
                   • 주말 및 공휴일에도 방문상담이 가능합니다. <br/>
-                  • 예약 완료 시 안내 문자가 발송됩니다. <br/>
-                  • 시공 요청 지역에 따라 일정이 조율될 수 있습니다.
+                  • 시공 요청 지역에 따라 일정이 조율될 수 있습니다. <br/>
+                  • 네이버 예약 시스템을 통해 쉽고 편리하게 실시간 확정이 가능합니다.
                 </p>
              </div>
           </div>
 
-          {/* Form Side */}
-          <div className="lg:col-span-12 xl:col-span-7">
-            <form onSubmit={handleSubmit} className="space-y-10">
-              <div className="bg-slate-50/50 p-10 rounded-2xl border border-slate-100">
-                <h3 className="text-xl font-serif font-bold mb-8 flex items-center">
-                  <Clock className="mr-3 text-brand-gold" size={20} /> 
-                  상담 시간 선택 (선택한 날짜: {format(selectedDate, 'yyyy-MM-dd')})
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {times.map(t => (
-                    <button
-                      key={t}
-                      type="button"
-                      onClick={() => setSelectedTime(t)}
-                      className={cn(
-                        "py-4 border text-sm font-bold transition-all",
-                        selectedTime === t 
-                          ? "bg-slate-900 border-slate-900 text-white shadow-lg" 
-                          : "border-slate-200 bg-white text-slate-500 hover:border-slate-400"
-                      )}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
+          {/* Guidance Side */}
+          <div className="lg:col-span-12 xl:col-span-7 space-y-10">
+            <div className="bg-slate-50/50 p-10 rounded-2xl border border-slate-100">
+              <h3 className="text-xl font-serif font-bold mb-8 flex items-center">
+                <Clock className="mr-3 text-brand-gold" size={20} /> 
+                상담 시간 선택 (선택한 날짜: {format(selectedDate, 'yyyy-MM-dd')})
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {times.map(t => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setSelectedTime(t)}
+                    className={cn(
+                      "py-4 border text-sm font-bold transition-all",
+                      selectedTime === t 
+                        ? "bg-slate-900 border-slate-900 text-white shadow-lg" 
+                        : "border-slate-200 bg-white text-slate-500 hover:border-slate-400"
+                    )}
+                  >
+                    {t}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              <div className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-widest font-bold text-slate-400 ml-1">이름</label>
-                    <input 
-                      required
-                      type="text" 
-                      placeholder="성함을 입력해주세요"
-                      className="w-full px-6 py-4 border-b border-slate-200 focus:border-brand-gold focus:outline-none bg-transparent transition-all"
-                      value={formData.clientName}
-                      onChange={e => setFormData({...formData, clientName: e.target.value})}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-widest font-bold text-slate-400 ml-1">연락처</label>
-                    <input 
-                      required
-                      type="tel" 
-                      placeholder="010-0000-0000"
-                      className="w-full px-6 py-4 border-b border-slate-200 focus:border-brand-gold focus:outline-none bg-transparent transition-all"
-                      value={formData.contact}
-                      onChange={e => setFormData({...formData, contact: e.target.value})}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2 text-left">
-                    <label className="text-[10px] uppercase tracking-widest font-bold text-slate-400 ml-1 block">지역</label>
-                    <select 
-                      className="w-full px-6 py-4 border-b border-slate-200 focus:border-brand-gold focus:outline-none bg-transparent transition-all appearance-none"
-                      value={formData.region}
-                      onChange={e => setFormData({...formData, region: e.target.value})}
-                    >
-                      {['분당', '판교', '서울', '기타'].map(r => <option key={r} value={r}>{r}</option>)}
-                    </select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-widest font-bold text-slate-400 ml-1">평수</label>
-                    <input 
-                      type="text" 
-                      placeholder="예: 34평"
-                      className="w-full px-6 py-4 border-b border-slate-200 focus:border-brand-gold focus:outline-none bg-transparent transition-all"
-                      value={formData.size}
-                      onChange={e => setFormData({...formData, size: e.target.value})}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-slate-400 ml-1">아파트명</label>
-                  <input 
-                    type="text" 
-                    placeholder="상세 정보를 입력해주세요"
-                    className="w-full px-6 py-4 border-b border-slate-200 focus:border-brand-gold focus:outline-none bg-transparent transition-all"
-                    value={formData.address}
-                    onChange={e => setFormData({...formData, address: e.target.value})}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-slate-400 ml-1">상담 내용</label>
-                  <textarea 
-                    rows={4}
-                    placeholder="상담을 원하시는 구체적인 내용을 입력해주세요..."
-                    className="w-full px-6 py-4 border border-slate-100 focus:border-brand-gold focus:outline-none bg-slate-50/30 transition-all rounded-xl"
-                    value={formData.details}
-                    onChange={e => setFormData({...formData, details: e.target.value})}
-                  />
-                </div>
+            <div className="bg-white p-10 rounded-2xl border border-slate-100 flex flex-col items-center text-center space-y-6">
+              <div className="w-16 h-16 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center">
+                <Send size={28} />
               </div>
-
-              <button 
-                disabled={loading}
-                type="submit"
-                className="w-full py-6 bg-slate-900 text-white uppercase tracking-[0.3em] font-bold hover:bg-brand-navy transition-all flex items-center justify-center disabled:opacity-50"
+              <div>
+                <h4 className="text-lg font-serif font-bold text-slate-900 mb-2">실시간 빠른 예약 안내</h4>
+                <p className="text-sm text-slate-500 font-light leading-relaxed">
+                  선택하신 일정(<span className="font-semibold text-slate-800">{format(selectedDate, 'yyyy년 MM월 dd일')} {selectedTime}</span>) 또는 원하시는 편하신 시간에 맞춰 예약을 진행하시려면, <br className="hidden md:block" />
+                  상단의 <span className="font-semibold text-[#e52528]">'네이버로 빠른 예약'</span> 버튼을 클릭하여 예약을 확정해 주시기 바랍니다.
+                </p>
+              </div>
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href="https://m.booking.naver.com/booking/13/bizes/1180716/items/5971491?area=pll&lang=ko&service-target=map-pc&startDate=2026-04-20&theme=place"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-5 bg-[#e52528] text-white uppercase tracking-[0.2em] font-bold hover:bg-[#c21f22] transition-all flex items-center justify-center rounded-xl text-sm shadow-[0_4px_15px_rgba(229,37,40,0.2)]"
               >
-                {loading ? '처리 중...' : '예약 완료하기'}
-              </button>
-            </form>
+                네이버 예약으로 바로가기
+              </motion.a>
+            </div>
           </div>
         </div>
       </section>
